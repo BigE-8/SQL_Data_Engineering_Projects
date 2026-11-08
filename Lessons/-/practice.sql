@@ -35,4 +35,3 @@ ORDER BY
 LIMIT 25;
 ~~~
 
-the 
