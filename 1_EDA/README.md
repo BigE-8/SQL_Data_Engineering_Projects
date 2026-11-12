@@ -35,7 +35,7 @@ A SQL project analyzing the data engineer job market using real world job postin
 
 
 ## SQL Skills Demonstrated  
-
+The Skills
 ### Query Design & Optimization  
 
 ### Data Analysis Techniques
