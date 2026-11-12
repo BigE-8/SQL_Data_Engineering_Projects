@@ -31,7 +31,7 @@ A SQL project analyzing the data engineer job market using real world job postin
 - Core Languages: SQL and Python each apper in ~29,000 job postings, making them the most demanded skills.  
 - Cloud Platforms: AWS and Azure are critical for modern data engineering roles.  
 - Infra & tooling: Kubernetes, Docker and Terraform are associated with premium salaries.  
-- Big data tools: Apache Spark shows strong demand with competitife compensation
+- Big data tools: Apache Spark shows strong demand with competitife compensation.
 
 
 ## SQL Skills Demonstrated  
