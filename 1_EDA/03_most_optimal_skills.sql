@@ -1,7 +1,7 @@
 /*
-Question: What are the most optimal skills for data engineers-balancing both demand and salary?
+Question: What are the most optimal skills for Data Analyst-balancing both demand and salary?
 - Create a ranking column that combines demand count and median salary to identify the most valuable skills.
-- Focus only on remote Data Engineer positions with specified annual salaries.
+- Focus only on remote Data Analyst positions with specified annual salaries.
 - Why? This approach highlights skills that balance market demand and financial reward. it weighs core skills
 appropriately, rather than letting rare, outlier skills distort the results.
 */
@@ -18,7 +18,7 @@ INNER JOIN skills_job_dim AS sjd
 INNER JOIN skills_dim AS sd
     ON sjd.skill_id = sd.skill_id
 WHERE
-    jpf.job_title_short = 'Data Engineer'
+    jpf.job_title_short = 'Data Analyst'
     AND jpf.job_work_from_home = True
     AND jpf.salary_year_avg IS NOT NULL
 GROUP BY sd.skills
@@ -31,26 +31,33 @@ LIMIT 25;
 SELECT LN(0);
 
 /*
-Top Skills by Optimal Score:
-- Terraform leads the list with a $184k median salary and 193 postings, resulting in the highest overall "optimal score"
-- Python and SQL dominate demand (over 1100 postings each), with strong median salaries of $135k and $130k, respectively
-- AWS (783 postings, $137k median), Spark (503 postings, $140k median), and Airflow (386 postings, $160k median)
-- Kafka offers high compensation ($145k medan) and solid demand (292 postings).
-- Tools like Snowflakes, Azure, and Databricks each have 250-475 postings and median salaries betweens $128-$137k.
+SQL is the most optimal skill overall, scoring 0.60 due to having the highest market demand at 783 postings alongside a solid $90,000 median salary. 
 
-DevOps & Engineering Tools:
-- Airflow ($150K), Kubernetes ($150.5K), and Docker ($135K) stand out for their mix of demand and top median salaries.
-- Git ($140K/208 postings) and Github ($135K/127 postings) have broad utility and competitive compensation.
+Key Takeaways
 
-Noteworthy Languages:
-- Java (303 postings, $135K median) and Scala (247 postings, $137K median) remain strong choices for well-paid data engineering roles.
-- Go ($140K/113 postings) is another programming language with excellent compensation.
+• Top Overall Value. SQL leads the ranking with an optimal score of 0.60, driven by unmatched job volume (783 postings). 
+  Tableau follows closely in second at 0.59, offering the highest median salary on the list ($95,000) paired with strong demand (505 postings).
 
-Databases & Cloud:
-- Redshift ($130K/274 postings), GCP ($136K/196 postings), Hadoop ($135K/198 postings), NoSQL ($134.4K/193 postings), and MongoDB ($135.8K/136 postings) add to a well-rounded data engineering skill set.
-- R, Pyspark, and BigQuery each deliver competitive salaries and meet the threshold for demand.
+• Core Programming Tier. Python ranks third with a 0.56 score ($90,000 salary and 494 postings). 
+  R and Power BI tie right below it at 0.51, delivering comparable salaries near $90,000 but with noticeably lower job demand (289 and 293 postings).
 
-Summary:
-Skills that consistently appear near the top balance a strong combination of market demand (job security) and financial benefit. Python, SQL, AWS, Spark, Airflow, and Terraform are particularly strategic for both immediate opportunities and longer-term career growth in data engineering.
+• High Demand vs. Lower Pay. Excel maintains strong market demand (441 postings) 
+  but ties at a 0.51 optimal score because it carries the lowest median salary in the group at $83,500.
+  
+• Niche Tools. SAS (0.46) and Looker (0.42) sit at the bottom of the list, 
+  offering respectable pay ($85,900 and $87,500) but significantly fewer job openings (220 and 117 postings).
 
+┌──────────┬───────────────┬──────────────┬─────────────────┬───────────────┐
+│  skills  │ median_salary │ demand_count │ ln_demand_count │ optimal_score │
+│ varchar  │    double     │    int64     │     double      │    double     │
+├──────────┼───────────────┼──────────────┼─────────────────┼───────────────┤
+│ sql      │       90000.0 │          783 │             6.7 │           0.6 │
+│ tableau  │       95000.0 │          505 │             6.2 │          0.59 │
+│ python   │       90000.0 │          494 │             6.2 │          0.56 │
+│ r        │       89796.0 │          289 │             5.7 │          0.51 │
+│ power bi │       90000.0 │          293 │             5.7 │          0.51 │
+│ excel    │       83500.0 │          441 │             6.1 │          0.51 │
+│ sas      │       85900.0 │          220 │             5.4 │          0.46 │
+│ looker   │       87500.0 │          117 │             4.8 │          0.42 │
+└──────────┴───────────────┴──────────────┴─────────────────┴───────────────┘
 */

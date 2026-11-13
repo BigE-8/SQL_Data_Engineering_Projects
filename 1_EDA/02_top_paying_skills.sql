@@ -1,6 +1,6 @@
 /*
-Question: What are the highest-paying skills for data engineers?
-- Calculate the median salary for each skill required in data engineer positions
+Question: What are the highest-paying skills for Data Analyst?
+- Calculate the median salary for each skill required in Data Analyst positions
 - Focus on remote positions with specified salries
 - Include skill frequency to identify both salary and demand
 - Why? Helps identify which skills command the highest compensation while also showing how common
@@ -18,7 +18,7 @@ INNER JOIN skills_job_dim AS sjd
 INNER JOIN skills_dim AS sd
     ON sjd.skill_id = sd.skill_id
 WHERE
-    jpf.job_title_short = 'Data Engineer'
+    jpf.job_title_short = 'Data Analyst'
     AND jpf.job_work_from_home = True
 GROUP BY sd.skills
 HAVING
@@ -28,49 +28,52 @@ ORDER BY
 LIMIT 25;
 
 /*
-Key Insights:
-- Rust remains the top-paying skill at $210k median salary, though demand is still relatively limited (232 postings)
-- Terraform and Golang both have high median salaries at $184k, with strong demand (Terraform: 3,248 postings; Goland: 912)
-- Other notable skills with both high pay and moderate-to-high frequency include:
-    - Spring: $175.5k median salry (364 postings)
-    - Neo4j: $170k median salry (277 postings)
-    - GDPR: $169.6k median salary (582 postings)
-    - GraphQL: $167.5k median salary (445 postings)
-    - Kubernetes: $150.5k median salry (4,202 postings)
-    - Airflow: $150k median salary (9,996 postings)
-- Bitbucket, Ruby, Redis, Ansible, and Jupyter all appear in the top 25 for pay, each with hundreds of postings.
-- Most skills on the list are no longer extreme statistical outliers with just a handful of postings; instead, many
+TypeScript commands the highest median salary by a massive margin at $445,000, 
+while Go leads the entire dataset in job market demand with 1,714 postings. 
 
-Takeaway: While the ver top-paying skill (Rust) still has less demand than major cloud and data tools, most of the 
-┌────────────┬───────────────┬──────────────┐
-│   skills   │ median_salary │ demand_count │
-│  varchar   │    double     │    int64     │
-├────────────┼───────────────┼──────────────┤
-│ rust       │      210000.0 │          232 │
-│ golang     │      184000.0 │          912 │
-│ terraform  │      184000.0 │         3248 │
-│ spring     │      175500.0 │          364 │
-│ neo4j      │      170000.0 │          277 │
-│ gdpr       │      169616.0 │          582 │
-│ zoom       │      168438.0 │          127 │
-│ graphql    │      167500.0 │          445 │
-│ mongo      │      162250.0 │          265 │
-│ fastapi    │      157500.0 │          204 │
-│ bitbucket  │      155000.0 │          478 │
-│ django     │      155000.0 │          265 │
-│ crystal    │      154224.0 │          129 │
-│ atlassian  │      151500.0 │          249 │
-│ c          │      151500.0 │          444 │
-│ typescript │      151000.0 │          388 │
-│ kubernetes │      150500.0 │         4202 │
-│ ruby       │      150000.0 │          736 │
-│ airflow    │      150000.0 │         9996 │
-│ css        │      150000.0 │          262 │
-│ node       │      150000.0 │          179 │
-│ redis      │      149000.0 │          605 │
-│ vmware     │      148798.0 │          136 │
-│ ansible    │      148798.0 │          475 │
-│ jupyter    │      147500.0 │          400 │
-└────────────┴───────────────┴──────────────┘
-  25 rows                         3 columns
+Key Takeaways
+
+• Extreme Salary Outliers. TypeScript sits far above the rest at $445,000 across 132 postings, likely skewed by niche executive or senior engineering roles. 
+  Perl ($158,000), PySpark ($153,026), and Kafka ($145,538) form the next highest compensation tier.
+
+• Best Balance of Pay and Demand. Jira offers a rare combination of top-tier pay ($145,000) and heavy demand (798 postings). 
+  Databricks ($110,000 across 776 postings) and Airflow ($114,250 across 552 postings) also stand out as high-value data engineering skills.
+
+• Highest Volume Skills. Go dominates job volume with 1,714 postings at a $102,250 median salary. 
+  SQL Server (1,102 postings at $100,200) and JavaScript (859 postings at $103,250) round out the top three most requested skills.
+
+• Big Data and Core Infrastructure. Data processing tools like:
+- Spark (639 postings at $102,500), DAX (544 postings at $110,000), and Hadoop (474 postings at $107,500) maintain steady six-figure demand alongside foundational systems like C ($112,850) and Linux ($112,500).
+┌──────────────┬───────────────┬──────────────┐
+│    skills    │ median_salary │ demand_count │
+│   varchar    │    double     │    int64     │
+├──────────────┼───────────────┼──────────────┤
+│ typescript   │      445000.0 │          132 │
+│ perl         │      158000.0 │          115 │
+│ pyspark      │      153026.0 │          273 │
+│ kafka        │      145538.0 │          141 │
+│ zoom         │      145000.0 │          217 │
+│ jira         │      145000.0 │          798 │
+│ scala        │      135000.0 │          252 │
+│ shell        │      117300.0 │          145 │
+│ airflow      │      114250.0 │          552 │
+│ c            │      112850.0 │          373 │
+│ linux        │      112500.0 │          282 │
+│ ssis         │      110000.0 │          444 │
+│ databricks   │      110000.0 │          776 │
+│ dax          │      110000.0 │          544 │
+│ hadoop       │      107500.0 │          474 │
+│ db2          │      106850.0 │          114 │
+│ t-sql        │      106500.0 │          204 │
+│ php          │      105000.0 │          136 │
+│ scikit-learn │      103500.0 │          132 │
+│ javascript   │      103250.0 │          859 │
+│ unix         │      103000.0 │          106 │
+│ spark        │      102500.0 │          639 │
+│ go           │      102250.0 │         1714 │
+│ confluence   │      101500.0 │          300 │
+│ sql server   │      100200.0 │         1102 │
+└──────────────┴───────────────┴──────────────┘
+  25 rows                           3 columns
+
 */
